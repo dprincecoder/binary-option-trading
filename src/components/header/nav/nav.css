@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
+
+.nav {
+	width: 100%;
+	height: 4rem;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+		rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+	position: sticky;
+	top: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-items {
+	margin: 0 1rem;
+	/* overflow: hidden; */
+	padding: 0 1rem;
+	display: flex;
+	justify-content: space-between;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.nav-items {
+		margin: 0 1rem 0 0.1rem;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.nav-items {
+		margin: 0 1rem 0 0.1rem;
+	}
+}
+
+.bar {
+	display: none;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.bar {
+		display: flex;
+		margin-top: 1rem;
+		cursor: pointer;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.bar {
+		display: flex;
+		margin-top: 1rem;
+		cursor: pointer;
+	}
+}
+
+.nav-logo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.nav-logo h1,
+h2 {
+	padding: 0;
+	margin: 0;
+	font-size: 20px;
+	color: rgb(33, 46, 238);
+	text-transform: uppercase;
+	font-family: "Quintessential", "Franklin Gothic Medium", "Arial Narrow", Arial,
+		sans-serif;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.nav-logo h1 {
+		font-size: 18px;
+	}
+	.nav-logo h2 {
+		font-size: 15px;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.nav-logo h1 {
+		font-size: 18px;
+	}
+	.nav-logo h2 {
+		font-size: 15px;
+	}
+}
+
+.nav-ul {
+	display: flex;
+	position: relative;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.nav-ul {
+		display: none;
+		padding: 2rem;
+		position: absolute;
+		height: 40vh;
+		width: 100%;
+		flex-direction: column;
+		/* justify-content: center; */
+		background: url("https://www.pngkey.com/png/detail/133-1336335_blue-abstract-lines-png-transparent-image-blue-line.png");
+		align-items: center;
+		text-align: center;
+		top: 3rem;
+		left: -2.5rem;
+		background-color: white;
+	}
+	.active .nav-ul {
+		display: flex;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.nav-ul {
+		display: none;
+		padding: 2rem;
+		position: absolute;
+		height: 40vh;
+		width: 100%;
+		flex-direction: column;
+		/* justify-content: center; */
+		background: url("https://www.pngkey.com/png/detail/133-1336335_blue-abstract-lines-png-transparent-image-blue-line.png");
+		align-items: center;
+		text-align: center;
+		top: 3rem;
+		left: -2.5rem;
+		background-color: white;
+	}
+	.active .nav-ul {
+		display: flex;
+	}
+}
+
+.nav-list {
+	margin: 0 2rem;
+	list-style: none;
+	font-size: 18px;
+	cursor: pointer;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.nav-list {
+		height: 100%;
+		font-weight: 600;
+		width: 100%;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.nav-list {
+		height: 100%;
+		font-weight: 600;
+		width: 100%;
+	}
+}
+
+.register {
+	background-color: rgb(33, 46, 238);
+	border-color: rgb(33, 46, 238);
+	line-height: 1.5715;
+	position: relative;
+	display: inline-block;
+	font-weight: 600;
+	margin-top: -0.5rem;
+	white-space: nowrap;
+	text-align: center;
+	box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	touch-action: manipulation;
+	height: 32px;
+	color: white;
+	padding: 4px 10px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.register {
+		margin-top: 0;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.register {
+		margin-top: 0;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.login {
+		color: rgb(33, 46, 238);
+		outline: transparent;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 23px;
+		background-color: #fff;
+		width: 15rem;
+
+		padding: 1rem 0;
+		margin: 1rem 0;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.login {
+		color: rgb(33, 46, 238);
+		outline: transparent;
+		border-radius: 10px;
+		font-size: 30px;
+		background-color: #fff;
+		width: 15rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 0;
+		margin: 0.5rem 0;
+	}
+}
