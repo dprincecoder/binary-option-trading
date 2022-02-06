@@ -21,7 +21,7 @@ const Header = () => {
 						loop={Infinity}
 						wrapper="b"
 					/>
-					<h1>Crypto Investment</h1>
+					<h1>Cryptocurrency Investment Platform</h1>
 					<p>
 						Invest in a Bundle of the top cryptocurrencies, Bitcoin, Ethereum
 						and more. <b>Binaryoptiontrading.com</b> is one of the stop roof for

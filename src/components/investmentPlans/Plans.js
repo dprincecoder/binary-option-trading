@@ -1,0 +1,60 @@
+import React from "react";
+import { tradingPackages, miningPackages } from "./packages";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import "./plans.css";
+
+const Plans = () => {
+	return (
+		<div className="plans">
+			<div className="plans-tl">
+				<h1>Investment Packages</h1>
+				<div className="plans-tl-btm"></div>
+			</div>
+			<div className="trading-plans">
+				{tradingPackages.map((plan) => {
+					const { title, id, percentage, percentSymbol, rate, time, options } =
+						plan;
+					const { from, to, currency } = rate;
+					const { info1, info2 } = options;
+					return (
+						<div className="trading-plans-card" key={id}>
+							<div className="trading-plans-card-top-effect"></div>
+							<div className="trading-plans-card-wrapper">
+								<h3>{title}</h3>
+								<div className="percent">
+									<div className="percent-no">{percentage}</div> {percentSymbol}
+								</div>
+								<div className="trading-plan-time-frame">{time}</div>
+								<div className="trading-plans-price-list">
+									<div className="trading-plans-price-list-span">
+										{currency}
+										{from}
+									</div>
+									-
+									<div className="trading-plans-price-list-right-span">
+										{currency}
+										{to}
+									</div>
+								</div>
+								<div className="trading-plans-icons-holder">
+									<div className="trading-plans-icon">
+										<CheckCircleIcon />
+										<span className="trading-plans-icon-span">{info1}</span>
+									</div>
+									<div className="trading-plans-icon">
+										<CheckCircleIcon />
+										<span className="trading-plans-icon-span">{info2}</span>
+									</div>
+                                </div>
+                                <div className="btn-start">Invest</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+			<div className="mining-plans"></div>
+		</div>
+	);
+};
+
+export default Plans;

@@ -9,8 +9,8 @@ const Nav = () => {
 			<div className="nav-items">
 				<div className="nav-logo">
 					<h1>Binary</h1>
-					<div className="sml-txt">
-						<h2>Options trading</h2>
+					<div>
+						<h2 className="sml-txt">Options trading</h2>
 					</div>
 				</div>
 				<ul className="nav-ul">
