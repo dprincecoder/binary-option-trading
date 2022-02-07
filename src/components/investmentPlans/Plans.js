@@ -45,14 +45,59 @@ const Plans = () => {
 										<CheckCircleIcon />
 										<span className="trading-plans-icon-span">{info2}</span>
 									</div>
-                                </div>
-                                <div className="btn-start">Invest</div>
+								</div>
+								<div className="btn-start">Invest</div>
 							</div>
 						</div>
 					);
 				})}
 			</div>
-			<div className="mining-plans"></div>
+			<div className="plans-tl">
+				<h1>Mining Packages</h1>
+				<div className="plans-tl-btm"></div>
+			</div>
+			<div className="mining-plans">
+				{miningPackages.map((plan) => {
+					const { title, id, percentage, percentSymbol, rate, time, options } =
+						plan;
+					const { from, to, currency } = rate;
+					const { info1, info2 } = options;
+					return (
+						<div className="mining-plans-card" key={id}>
+							<div className="mining-plans-card-top-effect"></div>
+							<div className="mining-plans-card-wrapper">
+								<h3>{title}</h3>
+								<div className="percent">
+									<div className="percent-no">{percentage}</div> {percentSymbol}
+								</div>
+								<div className="mining-plan-time-frame">{time}</div>
+								<div className="mining-plans-price-list">
+									<div className="mining-plans-price-list-span">
+										{currency}
+										{from}
+									</div>
+									-
+									<div className="mining-plans-price-list-right-span">
+										{currency}
+										{to}
+									</div>
+								</div>
+								<div className="mining-plans-icons-holder">
+									<div className="mining-plans-icon">
+										<CheckCircleIcon />
+										<span className="mining-plans-icon-span">{info1}</span>
+									</div>
+									<div className="mining-plans-icon">
+										<CheckCircleIcon />
+										<span className="mining-plans-icon-span">{info2}</span>
+									</div>
+								</div>
+								<div className="btn-start">Invest</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 };
