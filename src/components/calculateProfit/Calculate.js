@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import './calculate.css'
+import "./calculate.css";
 const plans = [
 	{
 		title: "Level 1 Plan",
 		level: 1,
 		percent: 3,
-		min: 50,
+		min: 150,
 		max: 599,
 		profit: 10,
 	},
@@ -54,7 +54,7 @@ const plans = [
 		level: 7,
 		percent: 33,
 		min: 6000,
-		max: null,
+		max: 500000,
 		profit: 10,
 	},
 	{
@@ -68,27 +68,35 @@ const plans = [
 ];
 
 const Calculate = () => {
-	const [selectedPlan, setSelectedPlan] = useState(0);
-	const [amount, setAmount] = useState(50);
+	const [selectedPlan, setSelectedPlan] = useState(150);
+	const [amount, setAmount] = useState(150);
 	const [profitReturn, setProfitReturn] = useState(0);
+	const [inputMin, setInputMin] = useState(amount);
+
+	const getValue = (e) => {
+		setAmount(e.target.value);
+		setProfitReturn(((amount * 10) / 8) * 10);
+		setInputMin(e.target.value);
+	};
 
 	return (
 		<div className="calculate">
 			<div className="plans-tl">
-				<h1>Calculate Profit</h1>
+				<h1 className="calculate-tx">Calculate Profit</h1>
 				<div className="plans-tl-btm"></div>
 			</div>
 			<div className="calculate-grid">
 				<div className="calculate-left">
 					<div className="calculate-select">
 						<p>Select Plan</p>
-						<div className="calculate-select-options">
+						<div className="calculate-select-options calculate-ml">
 							<select
 								className="browser-default"
 								value={selectedPlan}
 								onChange={(e) => {
 									setSelectedPlan(e.target.value);
 									setAmount(e.target.value);
+									setInputMin(e.target.value);
 								}}>
 								{plans.map((e) => (
 									<option key={e.level} value={e.min}>
@@ -98,26 +106,38 @@ const Calculate = () => {
 							</select>
 						</div>
 					</div>
-					<div className="calculate-input">
+					<div className="calculate-input-body">
 						<p>Amount($)</p>
-						<input
-							type="number"
-							min={amount}
-							value={amount}
-							onChange={(e) => setAmount(e.target.value)}
-							id=""
-						/>
+						<div className="calculate-input">
+							<input
+								type="number"
+								min={amount}
+								value={amount}
+								className="calculate-ml calculate-input-field"
+								onChange={getValue}
+								id=""
+							/>
+							{inputMin < selectedPlan && (
+								<small>
+									Amount must be the minimum of the selected package*
+								</small>
+							)}
+						</div>
 					</div>
 				</div>
 				<div className="calculate-right">
-                    <div className="calculate-right-info">
-                        <p>10x Your investing amount</p>
-                        <p>45 / Daily</p>
-                        <p>Welcome Bonus</p>
-                    </div>
+					<div className="calculate-right-info">
+						<p>10x Your investing amount</p>
+						<p>Up-to $150 / Daily Profit</p>
+						<p>Welcome Bonus</p>
+					</div>
 					<div className="calculate-right-gain">
-						<div className="calculate-right-gain-profit">Profit $</div>
-						<div className="calculate-right-gain-profit">Total Return $</div>
+						<div className="calculate-right-gain-profit">
+							Profit: ${amount * 10}
+						</div>
+						<div className="calculate-right-gain-profit">
+							Total Return: ${((amount * 10) / 8) * 10}
+						</div>
 					</div>
 				</div>
 			</div>
