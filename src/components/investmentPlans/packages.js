@@ -1,6 +1,6 @@
 export const tradingPackages = [
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 1,
 		title: "level 1 plan",
 		percentage: 3,
 		percentSymbol: "%",
@@ -12,7 +12,7 @@ export const tradingPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 2,
 		title: "level 2 plan",
 		percentage: 10,
 		percentSymbol: "%",
@@ -24,7 +24,7 @@ export const tradingPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 3,
 		title: "level 3 plan",
 		percentage: 15,
 		percentSymbol: "%",
@@ -36,7 +36,7 @@ export const tradingPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 4,
 		title: "fixed deposit",
 		percentage: 20,
 		percentSymbol: "%",
@@ -51,7 +51,7 @@ export const tradingPackages = [
 
 export const miningPackages = [
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 1,
 		title: "Bronze plan",
 		percentage: 10,
 		percentSymbol: "%",
@@ -63,7 +63,7 @@ export const miningPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 2,
 		title: "silver plan",
 		percentage: 20,
 		percentSymbol: "%",
@@ -75,7 +75,7 @@ export const miningPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 3,
 		title: "gold plan",
 		percentage: 33,
 		percentSymbol: "%",
@@ -87,7 +87,7 @@ export const miningPackages = [
 		},
 	},
 	{
-		id: Math.floor(Math.random() * 100),
+		id: 4,
 		title: "fixed deposit",
 		percentage: 45,
 		percentSymbol: "%",

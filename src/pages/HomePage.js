@@ -1,6 +1,7 @@
 import React from "react";
 import About from "../components/about/About";
 import Calculate from "../components/calculateProfit/Calculate";
+import CoinMarket from "../components/coinMarket/CoinMarket";
 import Header from "../components/header/Header";
 import Nav from "../components/header/nav/Nav";
 import Plans from "../components/investmentPlans/Plans";
@@ -15,6 +16,7 @@ const HomePage = () => {
 			<Plans />
 			<Calculate />
 			<Testimony />
+			<CoinMarket />
 		</>
 	);
 };
