@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import "./nav.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
 	const [toggle, setToggle] = useState(false);
 	return (
 		<div className={`nav ${toggle ? "active" : ""}`}>
 			<div className="nav-items">
-				<div className="nav-logo">
+				<Link to='/' className="nav-logo">
 					<h1>Binary</h1>
 					<div>
 						<h2 className="sml-txt">Options trading</h2>
 					</div>
-				</div>
+				</Link>
 				<ul className="nav-ul">
-					<li className="nav-list">Home</li>
-					<li className="nav-list">About</li>
-					<li className="nav-list">Contact us</li>
-					<li className="nav-list login">Login</li>
-					<div className="register">
-						<li className="nav-list ">Get Started</li>
-					</div>
+					<Link to='/' className="nav-list active">Home</Link>
+					<Link to='/about' className="nav-list active">About</Link>
+					<Link to='/contact' className="nav-list active">Contact us</Link>
+					<Link to='/login' className="nav-list active login">Login</Link>
+					<Link to='/signup' className="register">
+
+						<li className="nav-lis ">Get Started</li>
+					</Link>
 				</ul>
 				<div className="bar" onClick={() => setToggle(!toggle)}>
 					<MenuIcon />

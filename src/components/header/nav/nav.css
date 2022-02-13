@@ -11,8 +11,11 @@
 	margin: 0;
 	padding: 0;
 	z-index: 9999;
+	/* overflow: hidden; */
 }
-
+.active{
+	color: #000;
+}
 .nav-items {
 	margin: 0 1rem;
 	/* overflow: hidden; */
@@ -92,10 +95,10 @@
 		display: none;
 		padding: 2rem;
 		position: absolute;
-		height: 40vh;
-		width: 100%;
+		height: fit-content;
+		width: 110%;
 		flex-direction: column;
-		/* justify-content: center; */
+		justify-content: center;
 		background: url("https://www.pngkey.com/png/detail/133-1336335_blue-abstract-lines-png-transparent-image-blue-line.png");
 		align-items: center;
 		text-align: center;
@@ -112,8 +115,8 @@
 		display: none;
 		padding: 2rem;
 		position: absolute;
-		height: 40vh;
-		width: 100%;
+		height: fit-content;
+		width: 120% !important;
 		flex-direction: column;
 		/* justify-content: center; */
 		background: url("https://www.pngkey.com/png/detail/133-1336335_blue-abstract-lines-png-transparent-image-blue-line.png");
@@ -130,6 +133,7 @@
 
 .nav-list {
 	margin: 0 2rem;
+	padding: 1rem 0;
 	list-style: none;
 	font-size: 18px;
 	cursor: pointer;
@@ -153,10 +157,10 @@
 	background-color: rgb(33, 46, 238);
 	border-color: rgb(33, 46, 238);
 	line-height: 1.5715;
-	position: relative;
-	display: inline-block;
+	/* position: relative; */
+	/* display: inline-block; */
 	font-weight: 600;
-	margin-top: -0.5rem;
+	margin-top: 1rem;
 	white-space: nowrap;
 	text-align: center;
 	box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
@@ -168,15 +172,22 @@
 	touch-action: manipulation;
 	height: 32px;
 	color: white;
-	padding: 4px 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 14px 3rem;
 	font-size: 14px;
 	border-radius: 5px;
+}
+.nav-lis{
+	list-style: none;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
 	.register {
 		margin-top: 0;
 		text-align: center;
-		display: flex;
+		padding: 0 2rem;
+		/* display: flex; */
 		justify-content: center;
 		align-items: center;
 	}
