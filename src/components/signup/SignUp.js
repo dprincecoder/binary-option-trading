@@ -87,8 +87,11 @@ const SignUp = () => {
 						/>
 						<div className="signup-btn">
 							<ButtonHandler text="Signup" variant="contained" type='submit' disabled={!checked}/>
+							<ButtonHandler text="continue with Google" variant="standard"  disabled={!checked}/>
+
 						</div>
 					</form>
+					
 				</div>
 			</div>
 		</div>

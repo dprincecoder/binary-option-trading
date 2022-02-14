@@ -59,8 +59,7 @@ const SignIn = () => {
 						<div className="signin-right-top">
 							<h2 className="signin-details">Login Details</h2>
 							<div className="signin-right-top-container">
-								
-								<InputForm label="Email" required/>
+								<InputForm label="Email" required />
 								<InputForm label="Password" type="password" required />
 							</div>
 						</div>
@@ -72,6 +71,7 @@ const SignIn = () => {
 						/>
 						<div className="signin-btn">
 							<ButtonHandler text="Login" variant="contained" type="submit" />
+							<ButtonHandler text="Login" variant="standard" />
 						</div>
 					</form>
 				</div>
