@@ -88,6 +88,10 @@
 	justify-content: center;
 	align-items: center;
 }
+.hero-left-start a {
+	color: white;
+	text-decoration: none;
+}
 
 .hero-right {
 	width: 650px;

@@ -14,7 +14,7 @@ const Registration = () => {
 					<div className="registration-left">
 						<div className="registration-cert-container">
 							<img
-								src="assets/trade.jpg"
+								src="assets/cert.jpg"
 								alt="registration-cert"
 								className="registration-cert"
 							/>
