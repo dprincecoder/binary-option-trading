@@ -1,19 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputForm from "../../helpers/forms/input/Input";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputCheckbox from "../../helpers/forms/checkbox/InputCheckbox";
 import "./signup.css";
 import Nav from "../header/nav/Nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	googleSignInStart,
+	userErrorStart,
+	userSuccessStart,
+} from "../../redux/user/user.actions";
+import { NavigateNextTwoTone } from "@mui/icons-material";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+	userError: user.userError,
+	userSuccess: user.userSuccess,
+});
 const SignUp = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { currentUser, userError, userSuccess } = useSelector(mapState);
 	const [fullName, setFullName] = useState("");
 	const [checked, setChecked] = useState(false);
 
-	const handleSubmit = (e) => {
-		alert(fullName)
-	}
+	useEffect(() => {
+		if (currentUser) {
+			navigate("/");
+		}
+	}, [currentUser, navigate]);
+
+	const handleSubmit = (e) => {};
+
+	const signUpWithGoogle = () => {
+		dispatch(userErrorStart({}));
+		dispatch(userSuccessStart({}));
+
+		dispatch(googleSignInStart());
+	};
 
 	return (
 		<div className="signup">
@@ -68,16 +94,16 @@ const SignUp = () => {
 									handleChange={(e) => setFullName(e.target.value)}
 									required
 								/>
-								<InputForm label="Username" required/>
-								<InputForm label="Email" required/>
-								<InputForm label="Confirm Email" required/>
+								<InputForm label="Username" required />
+								<InputForm label="Email" required />
+								<InputForm label="Confirm Email" required />
 							</div>
 						</div>
 						<div className="signup-right-bottom">
 							<h2 className="signup-details"> Security Details</h2>
 							<div className="signup-right-bottom-wrapper">
-								<InputForm label="Password" type="password" required/>
-								<InputForm label="Confirm Password" type="password" required/>
+								<InputForm label="Password" type="password" required />
+								<InputForm label="Confirm Password" type="password" required />
 							</div>
 						</div>
 						<InputCheckbox
@@ -86,12 +112,20 @@ const SignUp = () => {
 							onCheck={() => setChecked(!checked)}
 						/>
 						<div className="signup-btn">
-							<ButtonHandler text="Signup" variant="contained" type='submit' disabled={!checked}/>
-							<ButtonHandler text="continue with Google" variant="standard"  disabled={!checked}/>
-
+							<ButtonHandler
+								text="Signup"
+								variant="contained"
+								type="submit"
+								disabled={!checked}
+							/>
+							<ButtonHandler
+								text="continue with Google"
+								variant="standard"
+								disabled={!checked}
+								onClick={signUpWithGoogle}
+							/>
 						</div>
 					</form>
-					
 				</div>
 			</div>
 		</div>

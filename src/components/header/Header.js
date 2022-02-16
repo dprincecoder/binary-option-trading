@@ -1,9 +1,17 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typical from "react-typical";
 import "./header.css";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+});
+
 const Header = () => {
+	const { currentUser } = useSelector(mapState);
+	const dispatch = useDispatch();
+
 	return (
 		<div className="hero">
 			<div className="hero-grid">
@@ -33,13 +41,21 @@ const Header = () => {
 						<b>Binaryoptiontrade.com</b> and thank us later.
 					</p>
 					<div className="hero-left-details">
-						<Link to="/login">
-							<h3 className="hero-left-login">Login</h3>
-						</Link>
-						<div className="hero-left-start">
-							<Link to="/signup">
-								<h3>Start Trading</h3>
+						{!currentUser && (
+							<Link to="/login">
+								<h3 className="hero-left-login">Login</h3>
 							</Link>
+						)}
+						<div className="hero-left-start">
+							{currentUser ? (
+								<Link to="/deposit">
+									<h3>Start Trading</h3>
+								</Link>
+							) : (
+								<Link to="/signup">
+									<h3>Get Started</h3>
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>

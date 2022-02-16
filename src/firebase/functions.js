@@ -1,16 +1,16 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { firebaseConfig } from "./config";
 
-//initialize firebase
+//initialize firebaseConfig
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 //firebase database
-const DB = firebaseApp?.firestore();
+const DB = firebaseApp.firestore();
 
 //firebase auth
-const auth = firebaseApp?.auth();
+const auth = firebaseApp.auth();
 
 //firebase google auth provider
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -26,14 +26,15 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
 	const snapShot = await userRef.get();
 
 	if (!snapShot.exists) {
-		const { username, fullName, email } = userAuth;
+		const { username, displayName, fullName, email } = userAuth;
 		const createdAt = new Date().toISOString();
 
 		try {
 			await userRef.set({
-				username,
-				fullName,
+				username: username || "",
+				fullName: fullName || displayName || "",
 				email,
+				userRoles: ["user"],
 				createdAt,
 				...additionalData,
 			});

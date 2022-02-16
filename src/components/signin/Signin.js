@@ -1,16 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputForm from "../../helpers/forms/input/Input";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputCheckbox from "../../helpers/forms/checkbox/InputCheckbox";
 import "./signin.css";
 import Nav from "../header/nav/Nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	googleSignInStart,
+	userErrorStart,
+	userSuccessStart,
+} from "../../redux/user/user.actions";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+	userError: user.userError,
+	userSuccess: user.userSuccess,
+});
 const SignIn = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { currentUser, userError, userSuccess } = useSelector(mapState);
 	const [fullName, setFullName] = useState("");
 	const [checked, setChecked] = useState(false);
 	const handleSubmit = () => {};
+
+	useEffect(() => {
+		if (currentUser) {
+			navigate("/");
+		}
+	}, [currentUser, navigate]);
+
+	const signInWithGoogle = () => {
+		dispatch(userErrorStart({}));
+		dispatch(userSuccessStart({}));
+
+		dispatch(googleSignInStart());
+	};
 	return (
 		<div className="signin">
 			<Nav />
@@ -71,7 +98,11 @@ const SignIn = () => {
 						/>
 						<div className="signin-btn">
 							<ButtonHandler text="Login" variant="contained" type="submit" />
-							<ButtonHandler text="Login" variant="standard" />
+							<ButtonHandler
+								text="Login with Google"
+								variant="standard"
+								onClick={signInWithGoogle}
+							/>
 						</div>
 					</form>
 				</div>

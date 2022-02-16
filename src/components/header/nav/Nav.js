@@ -2,16 +2,27 @@ import React, { useState } from "react";
 import "./nav.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signOutUserStart } from "../../../redux/user/user.actions";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+});
 const Nav = () => {
+	const dispatch = useDispatch();
 	const [toggle, setToggle] = useState(false);
+	const { currentUser } = useSelector(mapState);
+
+	const logoutUser = () => {
+		dispatch(signOutUserStart());
+	};
 	return (
 		<div className={`nav ${toggle ? "active" : ""}`}>
-			<div className="my-admin-nav">
-				<Link to="/my-admin">
-				my admin
-				</Link>
+			{currentUser?.userRoles?.includes("admin") && (
+				<div className="my-admin-nav">
+					<Link to="/my-admin">my admin</Link>
 				</div>
+			)}
 			<div className="nav-items">
 				<Link to="/" className="nav-logo">
 					<h1>Binary</h1>
@@ -26,12 +37,20 @@ const Nav = () => {
 					<Link to="/contact" className="nav-list active">
 						Contact us
 					</Link>
-					<Link to="/login" className="nav-list active login">
-						Login
-					</Link>
-					<Link to="/signup" className="register">
-						<li className="nav-lis ">Get Started</li>
-					</Link>
+					{!currentUser && (
+						<Link to="/login" className="nav-list active login">
+							Login
+						</Link>
+					)}
+					{currentUser ? (
+						<div className="register" onClick={logoutUser}>
+							<li className="nav-lis ">Logout</li>
+						</div>
+					) : (
+						<Link to="/signup" className="register">
+							<li className="nav-lis ">Get Started</li>
+						</Link>
+					)}
 				</ul>
 				<div className="bar" onClick={() => setToggle(!toggle)}>
 					<MenuIcon />
