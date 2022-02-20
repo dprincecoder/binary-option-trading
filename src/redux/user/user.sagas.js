@@ -63,8 +63,9 @@ export function* onGoogleSignInStart() {
 
 //create user using email and password
 export function* onEmailSignUp({
-	payload: { fullName, email, password, confirmPassword },
+	payload: { fullName, username, email, password, confirmPassword },
 }) {
+	console.log("we are here");
 	if (password !== confirmPassword) {
 		yield put(
 			userErrorStart([
@@ -79,7 +80,7 @@ export function* onEmailSignUp({
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password);
 		yield localStorage.setItem("currentUser", JSON.stringify(user));
-		const additionalData = { fullName };
+		const additionalData = { fullName, usernameOption: username, password };
 		yield getSnapshotFromUserAuth(user, additionalData);
 	} catch (error) {
 		console.log(error);

@@ -10,7 +10,7 @@ const mapState = ({ user }) => ({
 
 const Header = () => {
 	const { currentUser } = useSelector(mapState);
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	return (
 		<div className="hero">
@@ -38,7 +38,7 @@ const Header = () => {
 						without exposing towards any master skills. At{" "}
 						<b>Binaryoptiontrading.com</b> we trust in keeping things simple,
 						steady, and transparent. Experience the best at{" "}
-						<b>Binaryoptiontrade.com</b> and thank us later.
+						<b>binaryoptiontrade.com</b> and thank us later.
 					</p>
 					<div className="hero-left-details">
 						{!currentUser && (
