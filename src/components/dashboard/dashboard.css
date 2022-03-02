@@ -35,11 +35,22 @@
 }
 
 .left-dash-header,
-.left-dash-assets {
+.left-dash-assets,
+.left-dash-icons-holder {
 	background-color: #fff;
 	margin: 1rem;
 	padding: 1rem;
 	border-radius: 10px;
+}
+
+.left-dash-icon {
+	align-items: center;
+	display: flex;
+}
+
+.left-dash-icon-span {
+	margin-left: 1rem;
+	margin-bottom: 10px;
 }
 
 .right-dash-tab-active {
@@ -198,7 +209,8 @@
 
 .right-dash-transaction-deposit,
 .right-dash-transaction-withdrawal,
-.right-deposit-selection {
+.right-deposit-selection,
+.right-dash-deposits-info-container {
 	margin: 1rem;
 	padding: 1rem;
 	background-color: #ccc;
@@ -215,7 +227,8 @@
 
 .right-dash-transaction-deposit-info-items,
 .right-dash-transaction-withdrawal-info-items,
-.right-dash-deposit-selection-info-items {
+.right-dash-deposit-selection-info-items,
+.right-dash-deposits-info-items {
 	padding: 10px;
 	background-color: #fff;
 	margin: 1rem 0;
@@ -224,45 +237,54 @@
 
 .right-dash-transaction-deposit-info-items-list,
 .right-dash-transaction-withdrawal-info-items-list,
-.right-dash-deposit-selection-info-items-list {
+.right-dash-deposit-selection-info-items-list,
+.right-dash-deposits-info-items-list {
 	text-align: center;
 	width: 100%;
 	margin: 10px 0 1rem 0;
 	border-bottom: 1px solid #ccc;
 }
 
-.right-dash-deposit-selection-info-items-list p {
+.right-dash-deposit-selection-info-items-list p,
+.right-dash-deposits-info-items-list p {
 	text-transform: uppercase;
 	color: rgb(33, 46, 238);
 }
 
+.bg-bluish {
+	background-color: rgb(33, 46, 238);
+}
+
 .content-container {
-	opacity: 0;
+	/* opacity: 0; */
 	display: none;
-	transition: opacity 500ms ease-in-out 0ms, transform 500ms ease-in-out 0ms;
+	transition: display 500ms ease-in-out 0ms, transform 500ms ease-in-out 0ms;
 	transform: scale(0.9);
 }
 
 .active-content {
 	/* transform: scale(0.9); */
-	opacity: 1;
-	/* display: block; */
+	/* opacity: 1; */
+	display: block;
 	transition: display 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 	/* transition: all 0.5s ease-in-out; */
 	/* transform: scale(1); */
 }
 
-.right-dash-deposit-grid {
+.right-dash-deposit-grid,
+.right-dash-deposits-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-deposit-grid {
+	.right-dash-deposit-grid,
+	.right-dash-deposits-grid {
 		grid-template-columns: auto;
 	}
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-deposit-grid {
+	.right-dash-deposit-grid,
+	.right-dash-deposits-grid {
 		grid-template-columns: auto;
 	}
 }
@@ -295,5 +317,17 @@
 	outline: none;
 	border: none;
 	border-radius: 10px;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
+	background-color: rgb(133, 139, 228);
+	color: #fff;
+}
+
+.status-approved {
+	color: green;
+	text-transform: capitalize;
+}
+
+.status-failed {
+	text-transform: capitalize;
+	color: red;
 }

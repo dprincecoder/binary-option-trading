@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-const InputForm = ({ handleChange, label, ...otherProps }) => {
+const InputForm = ({ handleChange, label, type, ...otherProps }) => {
 	return (
 		<Box
 			// component="form"
@@ -13,6 +13,7 @@ const InputForm = ({ handleChange, label, ...otherProps }) => {
 			<TextField
 				id="outlined-basic"
 				label={label}
+				type={type}
 				variant="outlined"
 				onChange={handleChange}
 				{...otherProps}
