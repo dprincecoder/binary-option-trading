@@ -27,7 +27,7 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
 
 	if (!snapShot.exists) {
 		const { username, displayName, fullName, email } = userAuth;
-		const createdAt = new Date().toISOString();
+		const createdAt = new Date();
 
 		try {
 			await userRef.set({

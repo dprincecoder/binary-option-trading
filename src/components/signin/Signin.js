@@ -90,7 +90,7 @@ const SignIn = () => {
 							</span>
 						</div>
 					</div>
-					<Link to="/register">
+					<Link to="/signup">
 						<ButtonHandler text="Don't have account?" variant="outlined" />
 					</Link>
 				</div>

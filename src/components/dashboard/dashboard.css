@@ -252,7 +252,11 @@
 }
 
 .bg-bluish {
-	background-color: rgb(33, 46, 238);
+	background-color: rgb(54, 61, 148);
+}
+
+.center {
+	text-align: center;
 }
 
 .content-container {
@@ -330,4 +334,25 @@
 .status-failed {
 	text-transform: capitalize;
 	color: red;
+}
+
+.right-dash-transaction-withdrawal-info-items-list-copy-address {
+	cursor: copy;
+	padding: 10px;
+	margin: 10px 0;
+	background-color: rgb(133, 139, 228);
+	border-radius: 10px;
+	/* color: #fff; */
+	font-size: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.right-dash-transaction-withdrawal-info-items-list-copy-address small {
+	/* color: #fff; */
+	background-color: #ffff;
+	padding: 5px;
+	width: 100%;
+	border-radius: 10px;
+	margin-right: 5px;
 }

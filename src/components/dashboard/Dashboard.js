@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import Nav from "../header/nav/Nav";
+import axios from "axios";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import {
 	tradingPackages,
 	miningPackages,
@@ -8,7 +10,9 @@ import {
 import InputForm from "../../helpers/forms/input/Input";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { formatAmount, formatDate } from "../../helpers/currencyFormat/format";
+import { formatAmount } from "../../helpers/currencyFormat";
+import { formatDate, formatDate2 } from "../../helpers/formatDate";
+import { formatCoin } from "../../helpers/formatCoin";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 const activityTabs = [
@@ -34,12 +38,48 @@ const activityTabs = [
 	},
 ];
 const coins = [
-	{ id: 1, title: "Bitcoin", code: "btc" },
-	{ id: 2, title: "Ethereum", code: "eth" },
-	{ id: 3, title: "Usdt", code: "usdt" },
-	{ id: 4, title: "Doge", code: "doge" },
-	{ id: 5, title: "BNB", code: "bnb" },
-	{ id: 6, title: "Tron", code: "tron" },
+	{
+		id: 1,
+		title: "Bitcoin",
+		code: "btc",
+		address: "bc1q3k8udaecyxugehjk5mh69h8nzw3duknwmuwavd",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbtc.jpeg?alt=media&token=7fb8fcff-2246-4ee5-8e33-798cc06f976b",
+	},
+	{
+		id: 2,
+		title: "Ethereum",
+		code: "eth",
+		address: "0x3EDe0154624F1096295f5b26dBc832f95e617952",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbtc.jpeg?alt=media&token=7fb8fcff-2246-4ee5-8e33-798cc06f976b",
+	},
+	{
+		id: 3,
+		title: "Usdt",
+		code: "usdt",
+		address: "TUmDSrUGQWvUm1Ln9Fc97SaP1ZkUzDjGzD",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fusdt.jpeg?alt=media&token=4b2c0db4-e276-4688-a637-c146cb80212f",
+	},
+	{
+		id: 4,
+		title: "Doge",
+		code: "doge",
+		address: "D6yDxkrjZF8E72HdHJV5tmrsVyzLfM2mR3",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbtc.jpeg?alt=media&token=7fb8fcff-2246-4ee5-8e33-798cc06f976b",
+	},
+	{
+		id: 5,
+		title: "BNB",
+		code: "bnb",
+		address: "0x3EDe0154624F1096295f5b26dBc832f95e617952",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbnb.jpeg?alt=media&token=ac10d3dd-f233-43b5-bfc7-0303e29e9f2a",
+	},
+	{
+		id: 6,
+		title: "Tron",
+		code: "tron",
+		address: "TUmDSrUGQWvUm1Ln9Fc97SaP1ZkUzDjGzD",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Ftron.jpeg?alt=media&token=fedd4151-bcda-4a21-beb8-ca35a83d9fd6",
+	},
 ];
 const allDeposits = [
 	{
@@ -94,12 +134,16 @@ const allWithdrawals = [
 	},
 ];
 
+const link =
+	"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
+
 const mapState = ({ user }) => ({
-	currentUser: user,
+	currentUser: user.currentUser,
 });
 const Dashboard = () => {
 	const { currentUser } = useSelector(mapState);
-	const { username, email } = currentUser;
+	const { fullName, username, email, createdAt } = currentUser;
+	const [fetchedCoin, setFetchedCoin] = useState([]);
 	const [toggleTabs, setToggleTabs] = useState(2);
 	const [tradingMinRate, setTradingMinRate] = useState(0);
 	const [tradingMaxRate, setTradingMaxRate] = useState(0);
@@ -133,7 +177,22 @@ const Dashboard = () => {
 		getSelectedPlan(from, to, percentage, id, title);
 	};
 
-	console.log(depositArr);
+	// console.log(coinsData);
+	const fetchCoin = async () => {
+		const allCoins = await axios.get(link);
+		console.log(allCoins);
+		setFetchedCoin(allCoins.data);
+	};
+	useEffect(() => {
+		fetchCoin();
+	}, []);
+	//get specific coin by symbol
+	const getCoinAmount = (symbol) => {
+		return fetchedCoin.filter((coin) => coin.symbol === symbol);
+	};
+
+	//get new date in words
+	const currentDate = new Date();
 
 	return (
 		<div className="dashboard">
@@ -142,7 +201,7 @@ const Dashboard = () => {
 				<div className="left-dash">
 					<div className="left-dash-header">
 						<div className="left-dash-header-name box-sh">
-							<h1>{username}</h1>
+							<h1>{fullName || username}</h1>
 						</div>
 						<div className="left-dash-header-bal box-sh">
 							<h4>Active Balance</h4>
@@ -158,7 +217,7 @@ const Dashboard = () => {
 							<div className="left-dash-icon box-sh">
 								<CheckCircleIcon />
 								<span className="left-dash-icon-span">
-									Joined: Sunday, 23rd January, 2022
+									Joined: {formatDate(createdAt)}
 								</span>
 							</div>
 							<div className="left-dash-icon box-sh">
@@ -212,7 +271,9 @@ const Dashboard = () => {
 						<ul className="right-dash-activity-tab-list">
 							{activityTabs.map((itm) => (
 								<li
-									onClick={() => setToggleTabs(itm.id)}
+									onClick={() => {
+										setToggleTabs(itm.id);
+									}}
 									className={`right-dash-activity-tab-item ${
 										toggleTabs === itm.id ? "right-dash-tab-active" : "tab"
 									}`}
@@ -473,7 +534,7 @@ const Dashboard = () => {
 							{!activeDeposit && (
 								<>
 									<div className="right-dash-transaction-title">
-										<h4>Withdrawal Earnings</h4>
+										<h4>Withdraw Earnings</h4>
 										<div className=""></div>
 									</div>
 									<div className="right-dash-deposits-grid">
@@ -559,7 +620,7 @@ const Dashboard = () => {
 							</div>
 							<div className="right-dash-switchtab-wraper">
 								<div className="right-dash-transaction-deposit bg-bluish">
-									<div className="right-dash-transaction-deposit-title">
+									<div className="right-dash-transaction-deposit-title center">
 										Deposits Information
 									</div>
 									<div className="right-dash-transaction-deposit-info-items ">
@@ -581,7 +642,11 @@ const Dashboard = () => {
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
 														<p>Profit</p>
-														<small>{formatAmount(Number(amount))}</small>
+														<small>
+															{formatAmount(
+																Number(amount) * Number(percentage)
+															)}
+														</small>
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
 														<p>Principal Return</p>
@@ -596,12 +661,19 @@ const Dashboard = () => {
 														<small>{formatAmount(Number(amount))}</small>
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
-														<p>Amount(BTC)</p>
-														<small>00000</small>
+														<p>Amount({selectedCoin})</p>
+														<small>
+															{formatCoin(
+																getCoinAmount(selectedCoin).map(
+																	(itm) => itm.current_price
+																),
+																amount
+															)}
+														</small>
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
 														<p>Date Initiated</p>
-														<small>00000</small>
+														<small>{formatDate(currentDate)}</small>
 													</div>
 												</div>
 											);
@@ -609,7 +681,7 @@ const Dashboard = () => {
 									</div>
 								</div>
 								<div className="right-dash-transaction-withdrawal">
-									<div className="right-dash-transaction-withdrawal-title">
+									<div className="right-dash-transaction-withdrawal-title center">
 										Bitcoin deposit
 									</div>
 									<div className="right-dash-transaction-withdrawal-info-items">
@@ -619,15 +691,26 @@ const Dashboard = () => {
 										</div>
 										<div className="right-dash-transaction-withdrawal-info-items-list">
 											<p>To below address to complete the transaction</p>
-											<small>$00.000</small>
+											<div className="right-dash-transaction-withdrawal-info-items-list-copy-address">
+												<small>$00.000</small>
+												<ContentCopyIcon />
+											</div>
 										</div>
 										<div className="right-dash-transaction-withdrawal-info-items-list">
 											<p>Or scan this QR code to complete the transaction</p>
-											<img src="" alt="coin qr code address" />
+											<img
+												src="https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Ftron.jpeg?alt=media&token=fedd4151-bcda-4a21-beb8-ca35a83d9fd6"
+												alt="coin qr code address"
+											/>
 										</div>
 									</div>
 								</div>
 							</div>
+							<ButtonHandler
+								text="Cancel Transaction"
+								variant="contained"
+								onClick={() => setActiveDeposit(!activeDeposit)}
+							/>
 						</div>
 					</div>
 				</div>
