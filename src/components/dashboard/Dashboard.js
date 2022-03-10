@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./dashboard.css";
 import Nav from "../header/nav/Nav";
 import axios from "axios";
@@ -50,7 +50,7 @@ const coins = [
 		title: "Ethereum",
 		code: "eth",
 		address: "0x3EDe0154624F1096295f5b26dBc832f95e617952",
-		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbtc.jpeg?alt=media&token=7fb8fcff-2246-4ee5-8e33-798cc06f976b",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Feth.jpeg?alt=media&token=ff9f8d21-feba-4e9d-99dc-f93e7be716b8",
 	},
 	{
 		id: 3,
@@ -64,11 +64,11 @@ const coins = [
 		title: "Doge",
 		code: "doge",
 		address: "D6yDxkrjZF8E72HdHJV5tmrsVyzLfM2mR3",
-		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbtc.jpeg?alt=media&token=7fb8fcff-2246-4ee5-8e33-798cc06f976b",
+		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fdoge.jpeg?alt=media&token=19147218-6a98-4c22-b203-ab301d4aff39",
 	},
 	{
 		id: 5,
-		title: "BNB",
+		title: "BNB SmartChain",
 		code: "bnb",
 		address: "0x3EDe0154624F1096295f5b26dBc832f95e617952",
 		qr: "https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Fbnb.jpeg?alt=media&token=ac10d3dd-f233-43b5-bfc7-0303e29e9f2a",
@@ -154,13 +154,17 @@ const Dashboard = () => {
 	const [amount, setAmount] = useState(0);
 	const [planValues, setPlanValues] = useState({});
 	const [depositArr, setDepositArr] = useState([]);
+	const [addressCopied, setAddressCopied] = useState("");
+	// const copyText = null;
+	const addressRef = useRef();
+	// addressRef.innerHTML = copyText;
+	// console.log(addressRef.innerHTML);
 
 	const getSelectedPlan = (from, to, percentage, id, title) => {
 		const obj = { from, to, percentage, id, title };
 		setPlanValues(obj);
 		const newArr = [{ from, to, percentage, id, title, amount, selectedCoin }];
 
-		console.log(newArr);
 		setDepositArr(newArr);
 		return newArr;
 	};
@@ -193,6 +197,17 @@ const Dashboard = () => {
 
 	//get new date in words
 	const currentDate = new Date();
+
+	// let copyText;
+
+	const copyToClipboard = () => {
+		navigator.clipboard.writeText(addressRef.current.textContent);
+		setAddressCopied(addressRef.current.textContent);
+	};
+
+	const getCoinInfoByTheCoinSymbol = (selectedCoin) => {
+		return coins.filter((coin) => coin.code === selectedCoin);
+	};
 
 	return (
 		<div className="dashboard">
@@ -681,29 +696,42 @@ const Dashboard = () => {
 									</div>
 								</div>
 								<div className="right-dash-transaction-withdrawal">
-									<div className="right-dash-transaction-withdrawal-title center">
-										Bitcoin deposit
-									</div>
-									<div className="right-dash-transaction-withdrawal-info-items">
-										<div className="right-dash-transaction-withdrawal-info-items-list">
-											<p>Please send Exactly</p>
-											<small>$00.000</small>
-										</div>
-										<div className="right-dash-transaction-withdrawal-info-items-list">
-											<p>To below address to complete the transaction</p>
-											<div className="right-dash-transaction-withdrawal-info-items-list-copy-address">
-												<small>$00.000</small>
-												<ContentCopyIcon />
+									{getCoinInfoByTheCoinSymbol(
+										depositArr.map((i) => i.selectedCoin)
+									).map((item) => {
+										const { id, title, address, qr } = item;
+										return (
+											<div key={id}>
+												<div className="right-dash-transaction-withdrawal-title center">
+													{title} deposit
+												</div>
+												<div className="right-dash-transaction-withdrawal-info-items">
+													<div className="right-dash-transaction-withdrawal-info-items-list">
+														<p>Please send Exactly</p>
+														<small>$00.000</small>
+													</div>
+													<div className="right-dash-transaction-withdrawal-info-items-list">
+														<p>To below address to complete the transaction</p>
+														<div className="right-dash-transaction-withdrawal-info-items-list-copy-address">
+															<small ref={addressRef}>{address}</small>
+															<button onClick={copyToClipboard}>
+																<ContentCopyIcon />
+															</button>
+														</div>
+														{addressCopied && (
+															<p style={{ color: "green" }}>Address Copied!!</p>
+														)}
+													</div>
+													<div className="right-dash-transaction-withdrawal-info-items-list">
+														<p>
+															Or scan this QR code to complete the transaction
+														</p>
+														<img src={qr} alt="coin qr code address" />
+													</div>
+												</div>
 											</div>
-										</div>
-										<div className="right-dash-transaction-withdrawal-info-items-list">
-											<p>Or scan this QR code to complete the transaction</p>
-											<img
-												src="https://firebasestorage.googleapis.com/v0/b/binaryoptiontrading.appspot.com/o/coinsQr%2Ftron.jpeg?alt=media&token=fedd4151-bcda-4a21-beb8-ca35a83d9fd6"
-												alt="coin qr code address"
-											/>
-										</div>
-									</div>
+										);
+									})}
 								</div>
 							</div>
 							<ButtonHandler
