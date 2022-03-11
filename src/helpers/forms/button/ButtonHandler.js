@@ -6,12 +6,14 @@ const ButtonHandler = ({
 	handleClick,
 	variant,
 	color,
+	themeColor,
 	...otherProps
 }) => {
 	return (
 		<Button
 			onClick={handleClick}
-			color={color}
+			style={{ color: color }}
+			color={themeColor}
 			variant={variant}
 			disableElevation
 			{...otherProps}>

@@ -198,8 +198,6 @@ const Dashboard = () => {
 	//get new date in words
 	const currentDate = new Date();
 
-	// let copyText;
-
 	const copyToClipboard = () => {
 		navigator.clipboard.writeText(addressRef.current.textContent);
 		setAddressCopied(addressRef.current.textContent);
@@ -410,6 +408,7 @@ const Dashboard = () => {
 										{miningPackages.map((itm) => {
 											const { id, percentage, percentSymbol, title, rate } =
 												itm;
+											const { from, to } = rate;
 											return (
 												<div className="right-deposit-selection" key={id}>
 													<input
@@ -417,9 +416,10 @@ const Dashboard = () => {
 														name=""
 														id=""
 														onChange={() =>
-															setMiningMinRate(
-																parseInt(miningMinRate + rate.from)
-															)
+															// setMiningMinRate(
+															// 	parseInt(miningMinRate + rate.from)
+															// )
+															getSelectedPlan(from, to, percentage, id, title)
 														}
 													/>
 													<div className="right-dash-deposit-selection-info-items">
@@ -696,9 +696,7 @@ const Dashboard = () => {
 									</div>
 								</div>
 								<div className="right-dash-transaction-withdrawal">
-									{getCoinInfoByTheCoinSymbol(
-										depositArr.map((i) => i.selectedCoin)
-									).map((item) => {
+									{getCoinInfoByTheCoinSymbol(selectedCoin).map((item) => {
 										const { id, title, address, qr } = item;
 										return (
 											<div key={id}>
@@ -708,7 +706,16 @@ const Dashboard = () => {
 												<div className="right-dash-transaction-withdrawal-info-items">
 													<div className="right-dash-transaction-withdrawal-info-items-list">
 														<p>Please send Exactly</p>
-														<small>$00.000</small>
+														<small
+															style={{
+																color: "#037fff",
+																fontSize: "1.5rem",
+																padding: "10px",
+															}}>
+															{formatAmount(
+																depositArr.map((i) => Number(i.amount))
+															)}
+														</small>
 													</div>
 													<div className="right-dash-transaction-withdrawal-info-items-list">
 														<p>To below address to complete the transaction</p>
@@ -726,7 +733,13 @@ const Dashboard = () => {
 														<p>
 															Or scan this QR code to complete the transaction
 														</p>
-														<img src={qr} alt="coin qr code address" />
+														<div className="right-dash-transaction-withdrawal-info-items-list-img-wrapper">
+															<img
+																src={qr}
+																alt="coin qr code address"
+																className="right-dash-transaction-withdrawal-info-items-list-img"
+															/>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -734,11 +747,22 @@ const Dashboard = () => {
 									})}
 								</div>
 							</div>
-							<ButtonHandler
-								text="Cancel Transaction"
-								variant="contained"
-								onClick={() => setActiveDeposit(!activeDeposit)}
-							/>
+							<div className="right-dash-deposit-inputs">
+								<ButtonHandler
+									text="Cancel Transaction"
+									themeColor="error"
+									variant="contained"
+									// color="red"
+									onClick={() => setActiveDeposit(!activeDeposit)}
+								/>
+
+								<ButtonHandler
+									text="Confirm Transaction"
+									themeColor="success"
+									variant="contained"
+									onClick={() => setActiveDeposit(!activeDeposit)}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

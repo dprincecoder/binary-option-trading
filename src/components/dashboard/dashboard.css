@@ -304,6 +304,10 @@
 	align-items: center;
 	justify-content: space-between;
 }
+
+.right-dash-deposit-inputs button {
+	margin-bottom: 1rem;
+}
 @media screen and (min-width: 200px) and (max-width: 560px) {
 	.right-dash-deposit-inputs {
 		flex-direction: column;
@@ -311,7 +315,7 @@
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
 	.right-dash-deposit-inputs {
-		flex-direction: column;
+		/* flex-direction: column; */
 	}
 }
 
@@ -346,6 +350,12 @@
 	font-size: 15px;
 	display: flex;
 	justify-content: space-between;
+	word-wrap: break-word;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.right-dash-transaction-withdrawal-info-items-list-copy-address {
+		flex-direction: column;
+	}
 }
 
 .right-dash-transaction-withdrawal-info-items-list-copy-address small {
@@ -355,4 +365,36 @@
 	width: 100%;
 	border-radius: 10px;
 	margin-right: 5px;
+	font-size: 20px;
+	margin-bottom: 7px;
+}
+
+.right-dash-transaction-withdrawal-info-items-list-copy-address button {
+	cursor: copy;
+	outline: none;
+	border: 0;
+	background-color: transparent;
+	color: white;
+}
+
+.right-dash-transaction-withdrawal-info-items-list-img-wrapper {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.right-dash-transaction-withdrawal-info-items-list-img {
+}
+
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	/* .right-dash-transaction-withdrawal-info-items-list-img-wrapper{
+		
+	} */
+	.right-dash-transaction-withdrawal-info-items-list-copy-address {
+		flex-direction: column;
+	}
+	.right-dash-transaction-withdrawal-info-items-list-img {
+		width: 100%;
+		object-fit: cover;
+	}
 }
