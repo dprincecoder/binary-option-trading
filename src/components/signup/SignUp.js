@@ -1,19 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputForm from "../../helpers/forms/input/Input";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputCheckbox from "../../helpers/forms/checkbox/InputCheckbox";
 import "./signup.css";
 import Nav from "../header/nav/Nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	googleSignInStart,
+	signUpUserStart,
+	userErrorStart,
+	userSuccessStart,
+} from "../../redux/user/user.actions";
+import { NavigateNextTwoTone } from "@mui/icons-material";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+	userError: user.userError,
+	userSuccess: user.userSuccess,
+});
 const SignUp = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { currentUser, userError, userSuccess } = useSelector(mapState);
 	const [fullName, setFullName] = useState("");
+	const [email, setEmail] = useState("");
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 	const [checked, setChecked] = useState(false);
 
+	useEffect(() => {
+		if (currentUser) {
+			navigate("/");
+		}
+	}, [currentUser, navigate]);
+
+	useEffect(() => {
+		return () => dispatch(userErrorStart({}));
+	}, []);
+
 	const handleSubmit = (e) => {
-		alert(fullName)
-	}
+		e.preventDefault();
+		dispatch(userErrorStart({}));
+		dispatch(userSuccessStart({}));
+		dispatch(
+			signUpUserStart({
+				fullName,
+				username,
+				email,
+				password,
+				confirmPassword,
+			})
+		);
+	};
+
+	const signUpWithGoogle = () => {
+		dispatch(userErrorStart({}));
+		dispatch(userSuccessStart({}));
+
+		dispatch(googleSignInStart());
+	};
 
 	return (
 		<div className="signup">
@@ -21,7 +69,7 @@ const SignUp = () => {
 			<div className="signup-grid">
 				<div className="signup-left">
 					<p>Great! Let's start your Adventure!</p>
-					<h1>Access binaryoptionstrading.com</h1>
+					<h1>Access binaryoptionstrade.com</h1>
 					<div className="signup-left-options">
 						<div className="signup-left-icon">
 							<CheckCircleIcon />
@@ -68,16 +116,34 @@ const SignUp = () => {
 									handleChange={(e) => setFullName(e.target.value)}
 									required
 								/>
-								<InputForm label="Username" required/>
-								<InputForm label="Email" required/>
-								<InputForm label="Confirm Email" required/>
+								<InputForm
+									label="Username"
+									required
+									handleChange={(e) => setUsername(e.target.value)}
+								/>
+								<InputForm
+									label="Email"
+									type="email"
+									required
+									handleChange={(e) => setEmail(e.target.value)}
+								/>
 							</div>
 						</div>
 						<div className="signup-right-bottom">
 							<h2 className="signup-details"> Security Details</h2>
 							<div className="signup-right-bottom-wrapper">
-								<InputForm label="Password" type="password" required/>
-								<InputForm label="Confirm Password" type="password" required/>
+								<InputForm
+									label="Password"
+									type="password"
+									required
+									handleChange={(e) => setPassword(e.target.value)}
+								/>
+								<InputForm
+									label="Confirm Password"
+									type="password"
+									required
+									handleChange={(e) => setConfirmPassword(e.target.value)}
+								/>
 							</div>
 						</div>
 						<InputCheckbox
@@ -86,7 +152,18 @@ const SignUp = () => {
 							onCheck={() => setChecked(!checked)}
 						/>
 						<div className="signup-btn">
-							<ButtonHandler text="Signup" variant="contained" type='submit' disabled={!checked}/>
+							<ButtonHandler
+								text="Signup"
+								variant="contained"
+								type="submit"
+								disabled={!checked || !fullName}
+							/>
+							<ButtonHandler
+								text="continue with Google"
+								variant="standard"
+								disabled={!checked || fullName}
+								onClick={signUpWithGoogle}
+							/>
 						</div>
 					</form>
 				</div>

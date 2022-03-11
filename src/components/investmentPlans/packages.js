@@ -5,7 +5,7 @@ export const tradingPackages = [
 		percentage: 3,
 		percentSymbol: "%",
 		time: "daily for 24 hours",
-		rate: { from: "150", to: "599", currency: "$" },
+		rate: { from: 150, to: 599, currency: "$" },
 		options: {
 			info1: "Principal included at maturity",
 			info2: "Earning on Calendar Days",
@@ -17,7 +17,7 @@ export const tradingPackages = [
 		percentage: 10,
 		percentSymbol: "%",
 		time: "daily for 36 hours",
-		rate: { from: "600", to: "5,999", currency: "$" },
+		rate: { from: 600, to: 5999, currency: "$" },
 		options: {
 			info1: "Principal included at maturity",
 			info2: "Earning on Calendar Days",
@@ -29,7 +29,7 @@ export const tradingPackages = [
 		percentage: 15,
 		percentSymbol: "%",
 		time: "daily for 36 hours",
-		rate: { from: "6000", to: "100,000", currency: "$" },
+		rate: { from: 6000, to: 100000, currency: "$" },
 		options: {
 			info1: "Principal included at maturity",
 			info2: "Earning on Calendar Days",
@@ -41,7 +41,7 @@ export const tradingPackages = [
 		percentage: 20,
 		percentSymbol: "%",
 		time: "daily for 30 days",
-		rate: { from: "1,500", to: "10,000", currency: "$" },
+		rate: { from: 1500, to: 10000, currency: "$" },
 		options: {
 			info1: "Principal included at maturity",
 			info2: "Earning on Calendar Days",
@@ -56,7 +56,7 @@ export const miningPackages = [
 		percentage: 10,
 		percentSymbol: "%",
 		time: "daily for 3 days",
-		rate: { from: "200", to: "900", currency: "$" },
+		rate: { from: 200, to: 900, currency: "$" },
 		options: {
 			info1: "10000 GH/s Hash Power",
 			info2: "24/7 Customer Service",
@@ -68,7 +68,7 @@ export const miningPackages = [
 		percentage: 20,
 		percentSymbol: "%",
 		time: "daily for 3 days",
-		rate: { from: "1,000", to: "5,900", currency: "$" },
+		rate: { from: 1000, to: 5900, currency: "$" },
 		options: {
 			info1: "10000 GH/s Hash Power",
 			info2: "24/7 Customer Service",
@@ -80,7 +80,7 @@ export const miningPackages = [
 		percentage: 33,
 		percentSymbol: "%",
 		time: "daily for 5 days",
-		rate: { from: "6,000", to: "500,000", currency: "$" },
+		rate: { from: 6000, to: 500000, currency: "$" },
 		options: {
 			info1: "10000 GH/s Hash Power",
 			info2: "24/7 Customer Service",
@@ -92,7 +92,7 @@ export const miningPackages = [
 		percentage: 45,
 		percentSymbol: "%",
 		time: "daily for 30 days",
-		rate: { from: "1,500", to: "10,000", currency: "$" },
+		rate: { from: 1500, to: 10000, currency: "$" },
 		options: {
 			info1: "10000 GH/s Hash Power",
 			info2: "24/7 Customer Service",
