@@ -2,8 +2,15 @@ import React from "react";
 import { tradingPackages, miningPackages } from "./packages";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import "./plans.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+});
 const Plans = () => {
+	const { currentUser } = useSelector(mapState);
+
 	return (
 		<div className="plans">
 			<div className="plans-tl">
@@ -46,7 +53,18 @@ const Plans = () => {
 										<span className="trading-plans-icon-span">{info2}</span>
 									</div>
 								</div>
-								<div className="btn-start">Invest</div>
+								{currentUser ? (
+									<Link
+										to={`/dashboard/user/${
+											currentUser ? currentUser.id : "not-found"
+										}`}>
+										<div className="btn-start">Invest</div>
+									</Link>
+								) : (
+									<Link to="/signup">
+										<div className="btn-start">Invest</div>
+									</Link>
+								)}
 							</div>
 						</div>
 					);
@@ -92,7 +110,18 @@ const Plans = () => {
 										<span className="mining-plans-icon-span">{info2}</span>
 									</div>
 								</div>
-								<div className="btn-start">Invest</div>
+								{currentUser ? (
+									<Link
+										to={`/dashboard/user/${
+											currentUser ? currentUser.id : "not-found"
+										}`}>
+										<div className="btn-start">Invest</div>
+									</Link>
+								) : (
+									<Link to="/signup">
+										<div className="btn-start">Invest</div>
+									</Link>
+								)}
 							</div>
 						</div>
 					);

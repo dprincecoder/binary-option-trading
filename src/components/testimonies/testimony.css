@@ -54,11 +54,12 @@
 	position: relative;
 	/* width: 100%; */
 	overflow: hidden;
+	word-wrap: break-word;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
 	.testimony-clients {
 		width: 350px;
-		margin-left: 0;
+		margin-left: -3rem;
 	}
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
@@ -76,7 +77,7 @@
 }
 
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.testimony-txl h2{
+	.testimony-txl h2 {
 		font-size: 1.5rem;
 	}
 }
@@ -88,8 +89,8 @@
 }
 
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.testimony-txl p{
-		font-size: .8rem;
+	.testimony-txl p {
+		font-size: 0.8rem;
 	}
 }
 
@@ -125,6 +126,7 @@
 	transition: transform 0.5s ease-in-out;
 	border-radius: 10px;
 	/* margin-right: 3rem; */
+	word-wrap: break-word;
 }
 
 @media screen and (min-width: 200px) and (max-width: 560px) {
@@ -177,4 +179,5 @@
 .testimony-clients-card-bottom {
 	border-top: 1px solid #000;
 	width: 100%;
+	word-wrap: break-word;
 }

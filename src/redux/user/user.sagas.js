@@ -80,10 +80,45 @@ export function* onEmailSignUp({
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password);
 		yield localStorage.setItem("currentUser", JSON.stringify(user));
-		const additionalData = { fullName, usernameOption: username, password };
+		const additionalData = { fullName, username, password };
 		yield getSnapshotFromUserAuth(user, additionalData);
-	} catch (error) {
-		console.log(error);
+	} catch (e) {
+		switch (e.code) {
+			case "auth/email-already-in-use":
+				yield put(
+					userErrorStart([
+						{
+							title: "Email already in use",
+							message: "Sorry Email already in use by another user",
+						},
+					])
+				);
+				break;
+			case "auth/invalid-email":
+				yield put(
+					userErrorStart([
+						{
+							title: "Invalid Email",
+							message:
+								"Invalid Email, or The email address is badly formatted.",
+						},
+					])
+				);
+				break;
+			case "auth/weak-password":
+				yield put(
+					userErrorStart([
+						{
+							title: "Weak Password",
+							message:
+								"Weak Password, your password should be strong and at least more than 6 characters above",
+						},
+					])
+				);
+				break;
+			default:
+				yield put(userErrorStart([e]));
+		}
 	}
 }
 
@@ -97,8 +132,43 @@ export function* onEmailSignIn({ payload: { email, password } }) {
 		const { user } = yield auth.signInWithEmailAndPassword(email, password);
 		yield localStorage.setItem("currentUser", JSON.stringify(user));
 		yield getSnapshotFromUserAuth(user);
-	} catch (error) {
-		console.log(error);
+	} catch (e) {
+		switch (e.code) {
+			case "auth/user-not-found":
+				yield put(
+					userErrorStart([
+						{
+							title: "User not found",
+							message:
+								"No user with this credentials found in our database, please try again!",
+						},
+					])
+				);
+				break;
+			case "auth/invalid-email":
+				yield put(
+					userErrorStart([
+						{
+							title: "Invalid Email",
+							message:
+								"Invalid Email, or The email address is badly formatted!",
+						},
+					])
+				);
+				break;
+			case "auth/wrong-password":
+				yield put(
+					userErrorStart([
+						{
+							title: "Incorrect Password",
+							message: "Your password is incorrect, please try again!",
+						},
+					])
+				);
+				break;
+			default:
+				yield put(userErrorStart([e]));
+		}
 	}
 }
 
@@ -113,8 +183,8 @@ export function* onSignOut() {
 		yield put(signOutUserSuccess());
 		yield localStorage.setItem("currentUser", null);
 		yield window.location.reload();
-	} catch (error) {
-		console.log(error);
+	} catch (e) {
+		console.log(e);
 	}
 }
 

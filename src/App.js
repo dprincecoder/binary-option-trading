@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "./views/Layouts";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SignupPage, SigninPage, DashboardPage } from "./pages";
+import { SignupPage, SigninPage, DashboardPage, PageNotFound } from "./pages";
 import Contact from "./components/contact/Contact";
 import { useDispatch } from "react-redux";
 import { checkUserSession } from "./redux/user/user.actions";
@@ -23,6 +23,7 @@ function App() {
 				<Route
 					path="/dashboard/user/:userId"
 					element={<DashboardPage />}></Route>
+				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);

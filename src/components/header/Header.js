@@ -10,6 +10,8 @@ const mapState = ({ user }) => ({
 
 const Header = () => {
 	const { currentUser } = useSelector(mapState);
+	// const { userId, uid } = currentUser || null;
+	// const userMainId = userId || uid;
 	// const dispatch = useDispatch();
 
 	return (
@@ -48,7 +50,8 @@ const Header = () => {
 						)}
 						<div className="hero-left-start">
 							{currentUser ? (
-								<Link to="/deposit">
+								<Link
+									to={`/dashboard/user/${currentUser ? currentUser.id : ""}`}>
 									<h3>Start Trading</h3>
 								</Link>
 							) : (

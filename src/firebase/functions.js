@@ -36,6 +36,7 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
 				email,
 				userRoles: ["user"],
 				createdAt,
+				userId: uid,
 				...additionalData,
 			});
 		} catch (err) {
