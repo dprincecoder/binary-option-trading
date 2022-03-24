@@ -20,7 +20,7 @@ const Nav = () => {
 		<div className={`nav ${toggle ? "active" : ""}`}>
 			{currentUser?.userRoles?.includes("admin") && (
 				<div className="my-admin-nav">
-					<Link to="/my-admin">my admin</Link>
+					<Link to="/admin/manage-users">my admin</Link>
 				</div>
 			)}
 			<div className="nav-items">

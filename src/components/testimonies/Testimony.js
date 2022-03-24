@@ -48,7 +48,7 @@ const Testimony = () => {
 					<p>
 						REVIEWS ARE FAR MORE IMPORTANT TO US AFTER WITHDRAWAL. Join our{" "}
 						<b>Telegram Group</b>{" "}
-						<a href="https://t.me/+nj5zyNP1yIw5MDJk">Here</a> and join others on
+						<a href="https://t.me/+F-g1dNI485xhNWU0">Here</a> and join others on
 						their testimony of investment into cryptocurrency then LET US KNOW
 						WHY YOU LOVE Binaryoptionstrading!
 					</p>
