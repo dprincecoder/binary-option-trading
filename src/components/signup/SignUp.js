@@ -3,6 +3,8 @@ import InputForm from "../../helpers/forms/input/Input";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputCheckbox from "../../helpers/forms/checkbox/InputCheckbox";
+import { Alert, AlertTitle } from "@mui/material";
+
 import "./signup.css";
 import Nav from "../header/nav/Nav";
 import { Link, useNavigate } from "react-router-dom";
@@ -107,17 +109,29 @@ const SignUp = () => {
 					</Link>
 				</div>
 				<div className="signup-Right">
+					{userError.length > 0 && (
+						<>
+							{userError.map((err, index) => (
+								<Alert severity="error" key={index}>
+									<AlertTitle>{err.title}</AlertTitle>
+									{err.message}
+								</Alert>
+							))}
+						</>
+					)}
 					<form onSubmit={handleSubmit}>
 						<div className="signup-right-top">
 							<h2 className="signup-details">General Details</h2>
 							<div className="signup-right-top-container">
 								<InputForm
 									label="Full Name"
+									type="text"
 									handleChange={(e) => setFullName(e.target.value)}
 									required
 								/>
 								<InputForm
 									label="Username"
+									type="text"
 									required
 									handleChange={(e) => setUsername(e.target.value)}
 								/>

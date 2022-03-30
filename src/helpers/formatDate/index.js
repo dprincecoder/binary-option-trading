@@ -20,3 +20,36 @@ export const formatDate2 = (date) => {
 
 	return [year, month, day].join("-");
 };
+
+export const formatDate3 = (date) => {
+	//return date in words
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	const dateObj = new Date(date);
+	const day = days[dateObj.getDay()];
+	const month = months[dateObj.getMonth()];
+	const year = dateObj.getFullYear();
+	const dateInWords = `${day}, ${month} ${dateObj.getDate()}, ${year}`;
+	return dateInWords;
+};

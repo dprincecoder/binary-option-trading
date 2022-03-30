@@ -11,7 +11,7 @@ import InputForm from "../../helpers/forms/input/Input";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { formatAmount } from "../../helpers/currencyFormat";
-import { formatDate, formatDate2 } from "../../helpers/formatDate";
+import { formatDate, formatDate2, formatDate3 } from "../../helpers/formatDate";
 import { formatCoin } from "../../helpers/formatCoin";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
@@ -134,9 +134,10 @@ const allWithdrawals = [
 	},
 ];
 
-const link =
+const coinLink =
 	"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
 
+const geoApiLink = "https://geolocation-db.com/json/";
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
 });
@@ -155,6 +156,7 @@ const Dashboard = () => {
 	const [planValues, setPlanValues] = useState({});
 	const [depositArr, setDepositArr] = useState([]);
 	const [addressCopied, setAddressCopied] = useState("");
+	const [getUserLocation, setGetUserLocation] = useState({});
 	// const copyText = null;
 	const addressRef = useRef();
 	// addressRef.innerHTML = copyText;
@@ -183,7 +185,7 @@ const Dashboard = () => {
 
 	// console.log(coinsData);
 	const fetchCoin = async () => {
-		const allCoins = await axios.get(link);
+		const allCoins = await axios.get(coinLink);
 		console.log(allCoins);
 		setFetchedCoin(allCoins.data);
 	};
@@ -207,6 +209,25 @@ const Dashboard = () => {
 		return coins.filter((coin) => coin.code === selectedCoin);
 	};
 
+	//creating function to load ip address from the API
+	const getUserLocationFn = async () => {
+		const res = await axios.get(geoApiLink);
+		console.log(res.data);
+		setGetUserLocation(res.data);
+	};
+
+	useEffect(() => {
+		getUserLocationFn();
+	}, []);
+
+	const withdrawEarnings = async () => {
+		setActiveDeposit(!activeDeposit);
+	};
+
+	const confirmTransaction = async () => {
+		setActiveDeposit(!activeDeposit);
+	};
+
 	return (
 		<div className="dashboard">
 			<Nav />
@@ -214,7 +235,9 @@ const Dashboard = () => {
 				<div className="left-dash">
 					<div className="left-dash-header">
 						<div className="left-dash-header-name box-sh">
-							<h1>{fullName || username}</h1>
+							<h1>
+								{fullName || username ? fullName || username : "Binary User"}
+							</h1>
 						</div>
 						<div className="left-dash-header-bal box-sh">
 							<h4>Active Balance</h4>
@@ -230,13 +253,13 @@ const Dashboard = () => {
 							<div className="left-dash-icon box-sh">
 								<CheckCircleIcon />
 								<span className="left-dash-icon-span">
-									Joined: {formatDate(createdAt)}
+									Joined: {formatDate3(createdAt)}
 								</span>
 							</div>
 							<div className="left-dash-icon box-sh">
 								<CheckCircleIcon />
 								<span className="left-dash-icon-span">
-									Registered IP: 197.210.78.34
+									Registered IP: {getUserLocation.IPv4}
 								</span>
 							</div>
 							<div className="left-dash-icon box-sh">
@@ -564,6 +587,11 @@ const Dashboard = () => {
 											</div>
 										</div>
 									</div>
+									<ButtonHandler
+										text="Withdraw"
+										variant="contained"
+										onClick={withdrawEarnings}
+									/>
 								</>
 							)}
 						</div>
@@ -672,11 +700,11 @@ const Dashboard = () => {
 														<small>YES</small>
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
-														<p>Amount</p>
+														<p>Amount in (cash)</p>
 														<small>{formatAmount(Number(amount))}</small>
 													</div>
 													<div className="right-dash-transaction-deposit-info-items-list">
-														<p>Amount({selectedCoin})</p>
+														<p>Amount in (coin)</p>
 														<small>
 															{formatCoin(
 																getCoinAmount(selectedCoin).map(
@@ -760,7 +788,7 @@ const Dashboard = () => {
 									text="Confirm Transaction"
 									themeColor="success"
 									variant="contained"
-									onClick={() => setActiveDeposit(!activeDeposit)}
+									onClick={confirmTransaction}
 								/>
 							</div>
 						</div>
